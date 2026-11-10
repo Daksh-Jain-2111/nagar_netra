@@ -1,0 +1,317 @@
+{
+  "info": {
+    "name": "NagarNetra SMKMC Civic Governance API",
+    "_postman_id": "b4728512-1f48-4e89-a213-979b96d51df2",
+    "description": "Comprehensive Postman test collection for NagarNetra civic governance API.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "0. Health & System",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/health", "host": ["{{baseUrl}}"], "path": ["health"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "1. Authentication",
+      "item": [
+        {
+          "name": "Citizen OTP Request",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"mobile\": \"9822014589\",\n  \"corporation_id\": \"SMKMC\"\n}" },
+            "url": { "raw": "{{baseUrl}}/auth/otp/request", "host": ["{{baseUrl}}"], "path": ["auth", "otp", "request"] }
+          }
+        },
+        {
+          "name": "Citizen OTP Verify",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "pm.environment.set(\"citizenToken\", jsonData.access_token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"mobile\": \"9822014589\",\n  \"otp\": \"123456\",\n  \"name\": \"Sunita Patil\",\n  \"corporation_id\": \"SMKMC\"\n}" },
+            "url": { "raw": "{{baseUrl}}/auth/otp/verify", "host": ["{{baseUrl}}"], "path": ["auth", "otp", "verify"] }
+          }
+        },
+        {
+          "name": "Staff Login (Officer)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "pm.environment.set(\"officerToken\", jsonData.access_token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"email\": \"officer.roads@smkmc.demo\",\n  \"password\": \"Demo@123\"\n}" },
+            "url": { "raw": "{{baseUrl}}/auth/staff/login", "host": ["{{baseUrl}}"], "path": ["auth", "staff", "login"] }
+          }
+        },
+        {
+          "name": "Staff Login (Supervisor)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "pm.environment.set(\"supervisorToken\", jsonData.access_token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"email\": \"dmc1@smkmc.demo\",\n  \"password\": \"Demo@123\"\n}" },
+            "url": { "raw": "{{baseUrl}}/auth/staff/login", "host": ["{{baseUrl}}"], "path": ["auth", "staff", "login"] }
+          }
+        },
+        {
+          "name": "Staff Login (Admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "pm.environment.set(\"adminToken\", jsonData.access_token);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"email\": \"admin@smkmc.demo\",\n  \"password\": \"Demo@123\"\n}" },
+            "url": { "raw": "{{baseUrl}}/auth/staff/login", "host": ["{{baseUrl}}"], "path": ["auth", "staff", "login"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Complaints Lifecycle",
+      "item": [
+        {
+          "name": "Create Complaint",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var jsonData = pm.response.json();",
+                  "pm.environment.set(\"complaintRef\", jsonData.id);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{citizenToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"category_id\": \"cat_pothole\",\n  \"description\": \"Crater in Vishrambag Chowk asphalt\",\n  \"latitude\": 16.8524,\n  \"longitude\": 74.5815,\n  \"address\": \"Vishrambag Chowk, Ward 12 (DEMO)\",\n  \"ward_id\": \"ward_12\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/complaints", "host": ["{{baseUrl}}"], "path": ["complaints"] }
+          }
+        },
+        {
+          "name": "Get Complaint By Ref",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{officerToken}}" }],
+            "url": { "raw": "{{baseUrl}}/complaints/{{complaintRef}}", "host": ["{{baseUrl}}"], "path": ["complaints", "{{complaintRef}}"] }
+          }
+        },
+        {
+          "name": "Update Status (IN_PROGRESS)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{officerToken}}" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"status\": \"IN_PROGRESS\",\n  \"comment\": \"Officer inspecting site\"\n}" },
+            "url": { "raw": "{{baseUrl}}/complaints/{{complaintRef}}/status", "host": ["{{baseUrl}}"], "path": ["complaints", "{{complaintRef}}", "status"] }
+          }
+        },
+        {
+          "name": "Update Status (WORK_SCHEDULED)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{officerToken}}" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"status\": \"WORK_SCHEDULED\",\n  \"comment\": \"Squad scheduled for next morning\"\n}" },
+            "url": { "raw": "{{baseUrl}}/complaints/{{complaintRef}}/status", "host": ["{{baseUrl}}"], "path": ["complaints", "{{complaintRef}}", "status"] }
+          }
+        },
+        {
+          "name": "Resolve Complaint With Photo",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{officerToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"resolution_notes\": \"Pothole permanently repaired.\",\n  \"after_photo_path\": \"/uploads/fixed_demo.jpg\",\n  \"photo_latitude\": 16.8524,\n  \"photo_longitude\": 74.5815\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/complaints/{{complaintRef}}/resolve", "host": ["{{baseUrl}}"], "path": ["complaints", "{{complaintRef}}", "resolve"] }
+          }
+        },
+        {
+          "name": "Reopen Complaint (Within 7 Days)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{citizenToken}}" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"reason\": \"Asphalt settling unevenly.\"\n}" },
+            "url": { "raw": "{{baseUrl}}/complaints/{{complaintRef}}/reopen", "host": ["{{baseUrl}}"], "path": ["complaints", "{{complaintRef}}", "reopen"] }
+          }
+        },
+        {
+          "name": "Public Complaint Lookup (Status Only)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/complaints/public/{{complaintRef}}", "host": ["{{baseUrl}}"], "path": ["complaints", "public", "{{complaintRef}}"] }
+          }
+        },
+        {
+          "name": "Get Duplicate Candidates",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/complaints/NN-2026-000108/duplicate-candidates", "host": ["{{baseUrl}}"], "path": ["complaints", "NN-2026-000108", "duplicate-candidates"] }
+          }
+        },
+        {
+          "name": "Verify Danger Flag",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{officerToken}}" }],
+            "url": { "raw": "{{baseUrl}}/complaints/{{complaintRef}}/verify-danger", "host": ["{{baseUrl}}"], "path": ["complaints", "{{complaintRef}}", "verify-danger"] }
+          }
+        },
+        {
+          "name": "Get Complaint Timeline",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/complaints/{{complaintRef}}/timeline", "host": ["{{baseUrl}}"], "path": ["complaints", "{{complaintRef}}", "timeline"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. AI Services",
+      "item": [
+        {
+          "name": "AI Classify Issue",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"text\": \"Deep pothole outside Sangli bus stand\",\n  \"has_image\": true\n}" },
+            "url": { "raw": "{{baseUrl}}/ai/classify", "host": ["{{baseUrl}}"], "path": ["ai", "classify"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Supervisor & Admin",
+      "item": [
+        {
+          "name": "Supervisor To-Check Queue",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{supervisorToken}}" }],
+            "url": { "raw": "{{baseUrl}}/supervisor/to-check", "host": ["{{baseUrl}}"], "path": ["supervisor", "to-check"] }
+          }
+        },
+        {
+          "name": "Supervisor Escalations Queue",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{supervisorToken}}" }],
+            "url": { "raw": "{{baseUrl}}/supervisor/escalations", "host": ["{{baseUrl}}"], "path": ["supervisor", "escalations"] }
+          }
+        },
+        {
+          "name": "Admin Dashboard",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "url": { "raw": "{{baseUrl}}/admin/dashboard", "host": ["{{baseUrl}}"], "path": ["admin", "dashboard"] }
+          }
+        },
+        {
+          "name": "Export Audit Log CSV",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "url": { "raw": "{{baseUrl}}/admin/audit-log/export.csv", "host": ["{{baseUrl}}"], "path": ["admin", "audit-log", "export.csv"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Dev & Time Travel",
+      "item": [
+        {
+          "name": "Dev Time Travel (7 Days)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"hours\": 170\n}" },
+            "url": { "raw": "{{baseUrl}}/dev/time-travel", "host": ["{{baseUrl}}"], "path": ["dev", "time-travel"] }
+          }
+        },
+        {
+          "name": "Dev Run SLA Scheduler",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/dev/run-scheduler", "host": ["{{baseUrl}}"], "path": ["dev", "run-scheduler"] }
+          }
+        }
+      ]
+    }
+  ]
+}

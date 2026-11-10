@@ -1,0 +1,7 @@
+# Build-time only: export the CLIP image encoder to ONNX and compute issue text embeddings.
+# Not needed to run the API. On Windows the PyPI torch wheel is CPU-only (~200 MB).
+-r ../requirements.txt
+torch>=2.2
+open_clip_torch>=2.24
+onnx>=1.15
+onnxscript>=0.1

@@ -1,0 +1,10 @@
+{
+  "name": "NagarNetra - AI Civic Reporting (SMKMC)",
+  "description": "AI-powered civic issue reporting platform for Sangli-Miraj-Kupwad Municipal Corporation (SMKMC) with multilingual support, automated AI triage, and real-time issue tracking.",
+  "requestFramePermissions": [
+    "geolocation",
+    "microphone",
+    "camera"
+  ],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

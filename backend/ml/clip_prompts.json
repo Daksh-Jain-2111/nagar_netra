@@ -1,0 +1,146 @@
+{
+  "_comment": "Zero-shot CLIP prompts per civic issue code (codes must exist in backend/app/rules/civic_issue_taxonomy.json). Issue prompts are averaged into one embedding per issue; each prompt of a 'reject' class (NO_CIVIC_ISSUE) is kept as its own embedding so unrelated photos (pets, food, selfies, indoor scenes...) are recognised. Rebuild after editing: python -m backend.ml.build_clip_model",
+  "prompts": {
+    "ROAD_POTHOLE": [
+      "a photo of a pothole on a road",
+      "a photo of a deep pothole filled with water on an asphalt street",
+      "a photo of large potholes and craters on a city road in India",
+      "a close-up photo of a broken road with a big hole in the asphalt",
+      "a photo of a damaged street with many potholes"
+    ],
+    "ROAD_SURFACE_DAMAGE": [
+      "a photo of cracked asphalt road surface",
+      "a photo of a road with long cracks in the tarmac",
+      "a photo of crumbling, uneven and worn out road surface",
+      "a close-up photo of cracks in a concrete road",
+      "a photo of a road where the asphalt layer has peeled off"
+    ],
+    "ROAD_DIVIDER_DAMAGE": [
+      "a photo of a broken road divider",
+      "a photo of a damaged concrete median in the middle of a road",
+      "a photo of a broken road median kerb with fallen concrete blocks",
+      "a photo of a damaged traffic divider railing on a street"
+    ],
+    "DAMAGED_FOOTPATH": [
+      "a photo of a broken footpath",
+      "a photo of a damaged sidewalk with broken paving tiles",
+      "a photo of an uneven pedestrian pavement with missing paver blocks",
+      "a photo of a cracked and broken sidewalk"
+    ],
+    "DAMAGED_TRAFFIC_SIGN": [
+      "a photo of a damaged traffic sign",
+      "a photo of a bent and broken road sign on a pole",
+      "a photo of a fallen traffic signboard",
+      "a photo of a faded and broken street name board"
+    ],
+    "GARBAGE_DUMP": [
+      "a photo of a garbage dump on the roadside",
+      "a photo of a large pile of trash dumped on an empty plot",
+      "a photo of heaps of garbage and plastic waste on a street in India",
+      "a photo of illegal waste dumping in a public place"
+    ],
+    "WASTE_ACCUMULATION": [
+      "a photo of an overflowing garbage bin",
+      "a photo of a full dustbin with trash spilling onto the street",
+      "a photo of a municipal garbage container overflowing with waste",
+      "a photo of garbage bags piled up around a dumpster"
+    ],
+    "GARBAGE_BURNING": [
+      "a photo of garbage being burned on the street",
+      "a photo of smoke rising from a burning pile of trash",
+      "a photo of open burning of waste with fire and smoke",
+      "a photo of burning plastic garbage"
+    ],
+    "BROKEN_STREETLIGHT": [
+      "a photo of a broken street light",
+      "a photo of a street lamp that is not working at night",
+      "a photo of a damaged street light fixture on a pole",
+      "a photo of a dark street with a non-functional street lamp"
+    ],
+    "DAMAGED_ELECTRIC_POLE": [
+      "a photo of a damaged electric pole",
+      "a photo of a leaning electricity pole with tangled wires",
+      "a photo of exposed hanging electric wires on a street",
+      "a photo of a fallen electric pole"
+    ],
+    "WATER_LEAKAGE": [
+      "a photo of a leaking water pipe",
+      "a photo of water gushing from a burst pipeline on a road",
+      "a photo of a broken water pipe spraying water",
+      "a photo of drinking water leaking from a pipe onto the street"
+    ],
+    "OPEN_MANHOLE": [
+      "a photo of an open manhole",
+      "a photo of an uncovered manhole on a road",
+      "a photo of a manhole with a broken or missing cover",
+      "a photo of a dangerous open sewer hole in the street"
+    ],
+    "SEWAGE_OVERFLOW": [
+      "a photo of sewage overflowing onto a street",
+      "a photo of dirty black sewer water flowing on a road",
+      "a photo of an overflowing sewer manhole with dirty water",
+      "a photo of drain water spilling over onto the road"
+    ],
+    "BLOCKED_DRAIN": [
+      "a photo of a blocked drain",
+      "a photo of a clogged gutter full of garbage and plastic",
+      "a photo of an open drain choked with waste and stagnant water",
+      "a photo of a dirty roadside nala filled with trash"
+    ],
+    "WATERLOGGING": [
+      "a photo of a waterlogged street",
+      "a photo of a road flooded with rain water",
+      "a photo of vehicles driving through a flooded road",
+      "a photo of stagnant rainwater covering a street"
+    ],
+    "FALLEN_TREE": [
+      "a photo of a fallen tree",
+      "a photo of a tree fallen across a road",
+      "a photo of a large broken tree branch blocking a street",
+      "a photo of an uprooted tree lying on the road"
+    ],
+    "DEAD_ANIMAL": [
+      "a photo of a dead animal on the road",
+      "a photo of a dead dog lying on the street",
+      "a photo of an animal carcass on the roadside",
+      "a photo of a dead cow lying on the road"
+    ],
+    "STRAY_ANIMALS": [
+      "a photo of stray dogs on a street",
+      "a photo of stray cattle walking on a road",
+      "a photo of a pack of stray dogs in a residential lane",
+      "a photo of cows sitting in the middle of a road"
+    ],
+    "ILLEGAL_BANNER": [
+      "a photo of illegal banners and hoardings",
+      "a photo of many political posters and flex banners on a street",
+      "a photo of a large advertising hoarding blocking a footpath",
+      "a photo of flex banners tied to poles and trees"
+    ],
+    "ENCROACHMENT": [
+      "a photo of illegal construction encroaching on a road",
+      "a photo of street vendors' stalls encroaching on the footpath",
+      "a photo of an unauthorized structure built on a public road",
+      "a photo of construction material dumped on the road"
+    ],
+    "NO_CIVIC_ISSUE": [
+      "a photo of a clean and well maintained road",
+      "a photo of a clean street with buildings",
+      "a selfie of a person",
+      "a portrait photo of people",
+      "a photo of people playing sports",
+      "a photo of the inside of a room",
+      "a photo of a kitchen or a bathroom",
+      "a photo of food on a plate",
+      "a photo of a pet cat at home",
+      "a photo of a pet dog playing with its owner",
+      "a photo of wild animals in nature",
+      "a photo of a river or a lake",
+      "a photo of a beautiful park or garden",
+      "a photo of a car or a bus",
+      "a screenshot of a phone screen",
+      "a photo of a document or text",
+      "a photo of a clock or a household object"
+    ]
+  }
+}

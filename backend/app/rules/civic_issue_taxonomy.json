@@ -1,0 +1,191 @@
+{
+  "_comment": [
+    "Civic issue taxonomy: the label space of the image classifier and the ONLY place where an",
+    "issue code is mapped to a complaint category. Department and SLA are NOT defined here: they are",
+    "read at request time from the category master (DB tables `categories` / `departments`), so",
+    "department re-assignments and SLA changes never require touching the ML model or this file.",
+    "",
+    "Fields:",
+    "  code            Stable identifier emitted by the ML model. Never rename; add new codes instead.",
+    "  kind            'issue' (selectable civic issue) or 'reject' (model's 'not a civic issue' class).",
+    "  name_en/name_mr Citizen-facing issue names.",
+    "  category_id     Backend category (categories.id) this issue files under. Corporations created from",
+    "                  the platform template use '<CORP>_<category_id>' and are resolved automatically.",
+    "  corporation_overrides  Optional {corporation_id: category_id} when a tenant uses different ids.",
+    "  app_category_id Category id in the citizen web app's local category list (src/data/mockData.ts).",
+    "                  Bridge until the web app loads categories from /api/v1/master/categories."
+  ],
+  "taxonomy_version": "2026.10.0",
+  "issues": [
+    {
+      "code": "ROAD_POTHOLE",
+      "kind": "issue",
+      "name_en": "Road Potholes",
+      "name_mr": "रस्त्यावरील खड्डे",
+      "category_id": "cat_pothole",
+      "corporation_overrides": {"KDMC": "cat_kdmc_pothole"},
+      "app_category_id": "roads_potholes"
+    },
+    {
+      "code": "ROAD_SURFACE_DAMAGE",
+      "kind": "issue",
+      "name_en": "Road Surface Damage",
+      "name_mr": "रस्त्याचा पृष्ठभाग खराब / तडे",
+      "category_id": "cat_pothole",
+      "corporation_overrides": {"KDMC": "cat_kdmc_pothole"},
+      "app_category_id": "roads_potholes"
+    },
+    {
+      "code": "ROAD_DIVIDER_DAMAGE",
+      "kind": "issue",
+      "name_en": "Road Divider / Median Broken",
+      "name_mr": "रस्ता दुभाजक तुटलेला",
+      "category_id": "cat_other",
+      "app_category_id": "roads_divider"
+    },
+    {
+      "code": "DAMAGED_FOOTPATH",
+      "kind": "issue",
+      "name_en": "Damaged Footpath / Pavement",
+      "name_mr": "तुटलेला पदपथ / फुटपाथ",
+      "category_id": "cat_other",
+      "app_category_id": "roads_potholes"
+    },
+    {
+      "code": "DAMAGED_TRAFFIC_SIGN",
+      "kind": "issue",
+      "name_en": "Damaged Traffic Sign / Signboard",
+      "name_mr": "खराब वाहतूक चिन्ह / फलक",
+      "category_id": "cat_other",
+      "app_category_id": "other_general"
+    },
+    {
+      "code": "GARBAGE_DUMP",
+      "kind": "issue",
+      "name_en": "Garbage Dump / Open Dumping",
+      "name_mr": "उघड्यावर कचऱ्याचा ढीग",
+      "category_id": "cat_garbage",
+      "app_category_id": "solid_waste"
+    },
+    {
+      "code": "WASTE_ACCUMULATION",
+      "kind": "issue",
+      "name_en": "Overflowing Bin / Waste Accumulation",
+      "name_mr": "कचराकुंडी भरून वाहणे / कचरा साचणे",
+      "category_id": "cat_garbage",
+      "app_category_id": "solid_waste"
+    },
+    {
+      "code": "GARBAGE_BURNING",
+      "kind": "issue",
+      "name_en": "Garbage Burning",
+      "name_mr": "उघड्यावर कचरा जाळणे",
+      "category_id": "cat_garbage",
+      "app_category_id": "pollution_environmental"
+    },
+    {
+      "code": "BROKEN_STREETLIGHT",
+      "kind": "issue",
+      "name_en": "Streetlight Not Working / Broken",
+      "name_mr": "बंद किंवा तुटलेला पथदिवा",
+      "category_id": "cat_street_light",
+      "app_category_id": "streetlights_fused"
+    },
+    {
+      "code": "DAMAGED_ELECTRIC_POLE",
+      "kind": "issue",
+      "name_en": "Damaged Pole / Exposed Wires",
+      "name_mr": "धोकादायक खांब / उघड्या तारा",
+      "category_id": "cat_street_light",
+      "app_category_id": "streetlights_damaged_pole"
+    },
+    {
+      "code": "WATER_LEAKAGE",
+      "kind": "issue",
+      "name_en": "Water Pipeline Leakage",
+      "name_mr": "पाण्याची पाईपलाईन गळती",
+      "category_id": "cat_water_supply",
+      "app_category_id": "water_supply"
+    },
+    {
+      "code": "OPEN_MANHOLE",
+      "kind": "issue",
+      "name_en": "Open / Broken Manhole",
+      "name_mr": "उघडे किंवा तुटलेले मॅनहोल",
+      "category_id": "cat_drainage",
+      "app_category_id": "drainage_open_manhole"
+    },
+    {
+      "code": "SEWAGE_OVERFLOW",
+      "kind": "issue",
+      "name_en": "Sewage Overflow",
+      "name_mr": "सांडपाणी रस्त्यावर वाहणे",
+      "category_id": "cat_drainage",
+      "app_category_id": "drainage_sewage"
+    },
+    {
+      "code": "BLOCKED_DRAIN",
+      "kind": "issue",
+      "name_en": "Blocked / Clogged Drain",
+      "name_mr": "तुंबलेले गटार",
+      "category_id": "cat_drainage",
+      "app_category_id": "drainage_sewage"
+    },
+    {
+      "code": "WATERLOGGING",
+      "kind": "issue",
+      "name_en": "Waterlogging on Road",
+      "name_mr": "रस्त्यावर पाणी साचणे",
+      "category_id": "cat_drainage",
+      "app_category_id": "drainage_sewage"
+    },
+    {
+      "code": "FALLEN_TREE",
+      "kind": "issue",
+      "name_en": "Fallen Tree / Branch",
+      "name_mr": "झाड किंवा फांदी पडणे",
+      "category_id": "cat_fallen_tree",
+      "app_category_id": "trees_fallen"
+    },
+    {
+      "code": "DEAD_ANIMAL",
+      "kind": "issue",
+      "name_en": "Dead Animal",
+      "name_mr": "मृत प्राणी",
+      "category_id": "cat_dead_animal",
+      "app_category_id": "health_dead_animal"
+    },
+    {
+      "code": "STRAY_ANIMALS",
+      "kind": "issue",
+      "name_en": "Stray Animals",
+      "name_mr": "भटकी जनावरे",
+      "category_id": "cat_other",
+      "app_category_id": "animals_stray"
+    },
+    {
+      "code": "ILLEGAL_BANNER",
+      "kind": "issue",
+      "name_en": "Illegal Banner / Hoarding",
+      "name_mr": "अनधिकृत बॅनर / होर्डिंग",
+      "category_id": "cat_other",
+      "app_category_id": "encroachment_banners"
+    },
+    {
+      "code": "ENCROACHMENT",
+      "kind": "issue",
+      "name_en": "Encroachment / Illegal Construction",
+      "name_mr": "अतिक्रमण / अनधिकृत बांधकाम",
+      "category_id": "cat_other",
+      "app_category_id": "encroachment_illegal_construction"
+    },
+    {
+      "code": "NO_CIVIC_ISSUE",
+      "kind": "reject",
+      "name_en": "No civic issue detected",
+      "name_mr": "नागरी समस्या आढळली नाही",
+      "category_id": null,
+      "app_category_id": null
+    }
+  ]
+}
